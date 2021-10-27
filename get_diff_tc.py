@@ -5,6 +5,7 @@
 
 import os
 
+
 class TcFromTcandJmode:
     """Gets and deals with 2 Tc (Curie temp.) values from tc mode and j mode in AkaiKKR code.
 
@@ -20,17 +21,41 @@ class TcFromTcandJmode:
         dirname_tc (str): Directory name of tc mode. Default: "/tc"
         dirname_j (str): Directory name of j mode.
     """
+    # search keyword in the line which contains the Tc value
+    search_keyword = "Tc (in mean field approximation)"
+    # index number in a splitted line to identify the Tc value
+    index_number = 6
+
     def __init__(self, filename, dirname_tc="/tc", dirname_j="/j"):
         self.filepath_tc_mode = os.getcwd() + dirname_tc + "/" + filename
         self.filepath_j_mode = os.getcwd() + dirname_j + "/" + filename
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press ⌘F8 to toggle the breakpoint.
+    def get_tc(self, filepath):
+        with open(filepath, mode='r', encoding='utf-8') as file:
+            line_list = file.readlines()
+
+        for line in line_list:
+            if self.search_keyword in line:
+                tc_value = line.split()[self.index_number]
+        # check whether tc_value is set or not
+        try:
+            tc_value
+        except NameError:
+            print("Failed to catch Tc value. Check the output file or script file.")
+
+        # The default format of Tc value in AkaiKKR is "xxxxx.xxxK", thus remove "K" in the end.
+        tc_value = tc_value.replace("K", "")
+        tc_value = float(tc_value)
+
+    def print(self):
+        print(self.filepath_tc_mode)
+        print(self.filepath_j_mode)
 
 
-# Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+    filename = "output.dat"
+    dirname_tc = "/tc"
+    dirname_j = "/j"
+    test_instance = TcFromTcandJmode(filename, dirname_tc, dirname_j)
+    test_instance.print()
+    test_instance.get_tc(test_instance.filepath_j_mode)
