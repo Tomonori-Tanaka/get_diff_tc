@@ -57,14 +57,16 @@ class TcFromTcandJmode:
         # Calculate errors between the above 2 values.
         # The value of the tc_mode is used as a basis.
         self.absolute_error = self.curie_temp_j_mode - self.curie_temp_tc_mode
-        
+        self.relative_error = (self.curie_temp_j_mode - self.curie_temp_tc_mode) / self.curie_temp_tc_mode
 
     # fuction for test
-    def print(self):
+    def print_results(self):
         # print(self.filepath_tc_mode)
         # print(self.filepath_j_mode)
-        print(self.curie_temp_tc_mode)
-        print(self.curie_temp_j_mode)
+        print("Tc in tc mode:   ", self.curie_temp_tc_mode)
+        print("Tc in j  mode:   ", self.curie_temp_j_mode)
+        print("absolute error:  ", self.absolute_error)
+        print("relative error:  ", self.relative_error)
 
 
 if __name__ == '__main__':
@@ -76,4 +78,4 @@ if __name__ == '__main__':
     # test_instance.print()
     # test_instance.get_curie_temp(test_instance.filepath_j_mode)
     test_instance.store_2_curie_temp()
-    test_instance.print()
+    test_instance.print_results()
