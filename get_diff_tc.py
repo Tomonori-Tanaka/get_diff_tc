@@ -57,7 +57,10 @@ class TcFromTcandJmode:
         # Calculate errors between the above 2 values.
         # The value of the tc_mode is used as a basis.
         self.absolute_error = self.curie_temp_j_mode - self.curie_temp_tc_mode
-        self.relative_error = (self.curie_temp_j_mode - self.curie_temp_tc_mode) / self.curie_temp_tc_mode
+        try:
+            self.relative_error = (self.curie_temp_j_mode - self.curie_temp_tc_mode) / self.curie_temp_tc_mode
+        except ZeroDivisionError:
+            self.relative_error = 0
 
     # fuction for test
     def print_results(self):
