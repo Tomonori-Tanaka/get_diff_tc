@@ -39,6 +39,9 @@ for dir_path in dir_list:
     if abs(tc_check_instance.relative_error) > args.error_criterion:
         print('Caution! Tc in the below directory has an error over the criterion.')
         print(dir_path)
+        print("Tc in tc mode:   ", tc_check_instance.curie_temp_tc_mode)
+        print("Tc in j  mode:   ", tc_check_instance.curie_temp_j_mode)
+        print("\n")
     os.chdir(root_dir_name)
 
 # print(dir_list)
