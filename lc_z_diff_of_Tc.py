@@ -37,7 +37,7 @@ for dir_path in dir_list:
     tc_check_instance = get_diff_tc.TcFromTcandJmode(args.output_file, dir_name_tc, dir_name_j)
     tc_check_instance.store_2_curie_temp()
     if abs(tc_check_instance.relative_error) > args.error_criterion:
-        print('Caution! Tc in the below directory has over 5% error.')
+        print('Caution! Tc in the below directory has an error over the criterion.')
         print(dir_path)
     os.chdir(root_dir_name)
 
